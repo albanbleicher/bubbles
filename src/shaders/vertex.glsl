@@ -39,11 +39,12 @@ float noise(vec3 p){
 
 varying vec2 vUv;
 varying vec4 shape;
+varying vec3 vPos;
 		void main() {
 			vUv = uv;
 			float n = noise(1.0 + position * uScale + uTime);
-            float sm = smoothstep(n, 1.1,1.0);
-			vec3 pos =  1.0 + vec3(sm) * uIntensity;
-			shape = vec4(vec3(sm) * clamp(uIntensity, 0.0, 0.1), sm);
+			vec3 pos =  1.0 + vec3(n) * uIntensity;
+			shape = vec4(vec3(n) * clamp(uIntensity, 0.0, 0.1), n);
+            vPos = (position*pos)/10.0;
 			gl_Position = projectionMatrix * modelViewMatrix * vec4( position * pos, 1.0 );
 		}

@@ -1,9 +1,8 @@
 {
   "name": "my-project",
-  "main": "src/scripts/main.js",
   "scripts": {
-    "dev": "parcel src/index.html",
-    "build": "parcel build",
+    "dev": "parcel src/scripts/main.js src/index.html",
+    "build": "parcel build src/index.html",
     "clean": "rm -rf dist/*.*"
   },
   "devDependencies": {
@@ -12,6 +11,7 @@
   "dependencies": {
     "@parcel/transformer-glsl": "^2.0.0",
     "@parcel/transformer-sass": "^2.0.0",
+    "gsap": "^3.10.4",
     "three": "^0.134.0",
     "tweakpane": "^3.0.5"
   }

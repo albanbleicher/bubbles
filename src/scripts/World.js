@@ -18,10 +18,10 @@ export default class World {
   init() {
     const geo = new SphereGeometry(10, 100, 100);
     const PARAMS = {
-      scale: 0.11,
-      intensity: 0.25,
-      color: new Color("white"),
-      colorIntensity: 5,
+      scale: 0.09,
+      intensity: 0.95,
+      color: new Color("#4b49ff"),
+      colorIntensity: 2,
     };
     const mat = new ShaderMaterial({
       vertexShader: vertex,
@@ -52,7 +52,8 @@ export default class World {
     this.container.add(mesh);
     this.time.addEventListener("tick", () => {
       mesh.material.uniforms.uTime.value += 0.01;
-      // mesh.rotation.y += 0.01;
+      mesh.rotation.x += 0.01;
+      mesh.rotation.y += 0.001;
     });
     window.addEventListener("mousemove", (e) => {
       mesh.material.uniforms.uMouse.value.x =
