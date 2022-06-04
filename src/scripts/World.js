@@ -52,8 +52,8 @@ export default class World {
     this.container.add(mesh);
     this.time.addEventListener("tick", () => {
       mesh.material.uniforms.uTime.value += 0.01;
-      mesh.rotation.x += 0.01;
-      mesh.rotation.y += 0.001;
+      // mesh.rotation.x += 0.01;
+      // mesh.rotation.y += 0.001;
     });
     window.addEventListener("mousemove", (e) => {
       mesh.material.uniforms.uMouse.value.x =
