@@ -21,6 +21,7 @@ export default class World {
       scale: 0.11,
       intensity: 0.25,
       color: new Color("white"),
+      colorIntensity: 5,
     };
     const mat = new ShaderMaterial({
       vertexShader: vertex,
@@ -39,6 +40,9 @@ export default class World {
         },
         uMouse: {
           value: new Vector2(0, 0),
+        },
+        uColorIntensity: {
+          value: PARAMS.colorIntensity,
         },
       },
     });
@@ -81,6 +85,12 @@ export default class World {
           mesh.material.uniforms.uColor.value.g = ev.value.g / 255;
           mesh.material.uniforms.uColor.value.b = ev.value.b / 255;
         });
+      folder.addInput(mesh.material.uniforms.uColorIntensity, "value", {
+        min: 0,
+        max: 10,
+        step: 0.01,
+        label: "color intensity",
+      });
       folder.addInput(mesh.material, "wireframe");
     }
   }
