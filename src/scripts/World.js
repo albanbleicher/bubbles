@@ -12,6 +12,7 @@ import nz from "../textures/env/nz.png";
 import px from "../textures/env/px.png";
 import py from "../textures/env/py.png";
 import pz from "../textures/env/pz.png";
+import gsap from "gsap";
 export default class World {
   constructor(params) {
     this.camera = params.camera;
@@ -59,6 +60,7 @@ export default class World {
       },
     });
     const mesh = new Mesh(geo, mat);
+    mesh.scale.set(0, 0, 0);
     const second = mesh.clone();
     const third = mesh.clone();
     const depth = 1.3;
@@ -71,6 +73,14 @@ export default class World {
     this.container.add(mesh);
     this.container.add(second);
     this.container.add(third);
+    gsap.to([third.scale, second.scale, mesh.scale], {
+      x: 1,
+      y: 1,
+      z: 1,
+      ease: "back.out(1.3)",
+      stagger: 0.3,
+      duration: 1.5,
+    });
     this.time.addEventListener("tick", () => {
       mesh.material.uniforms.uTime.value += 0.01;
       mesh.rotation.x += 0.01;
