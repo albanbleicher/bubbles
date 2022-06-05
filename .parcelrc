@@ -6,6 +6,9 @@
     ],
     "*.glsl": [
       "@parcel/transformer-glsl"
+    ],
+    "*.hdr": [
+      "@parcel/transformer-raw"
     ]
   }
 }

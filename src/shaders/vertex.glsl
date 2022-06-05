@@ -40,11 +40,14 @@ float noise(vec3 p){
 varying vec2 vUv;
 varying vec4 shape;
 varying vec3 vPos;
+varying vec3 vWorldPosition;
 		void main() {
 			vUv = uv;
 			float n = noise(1.0 + position * uScale + uTime);
 			vec3 pos =  1.0 + vec3(n) * uIntensity;
 			shape = vec4(vec3(n) * clamp(uIntensity, 0.0, 0.1), n);
             vPos = (position*pos)/10.0;
+            vec4 worldPosition = modelMatrix * vec4(pos, 1.0);
+            vWorldPosition = vec3(-worldPosition.z, worldPosition.y, -worldPosition.x);
 			gl_Position = projectionMatrix * modelViewMatrix * vec4( position * pos, 1.0 );
 		}

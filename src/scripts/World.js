@@ -5,6 +5,13 @@ import vertex from "../shaders/vertex.glsl";
 import fragment from "../shaders/fragment.glsl";
 import { Color } from "three";
 import { Vector2 } from "three";
+import { CubeTextureLoader } from "three";
+import nx from "../textures/env/nx.png";
+import ny from "../textures/env/ny.png";
+import nz from "../textures/env/nz.png";
+import px from "../textures/env/px.png";
+import py from "../textures/env/py.png";
+import pz from "../textures/env/pz.png";
 export default class World {
   constructor(params) {
     this.camera = params.camera;
@@ -15,13 +22,15 @@ export default class World {
     this.container.name = "World";
     this.init();
   }
-  init() {
+  async init() {
+    const loader = new CubeTextureLoader();
+    const envMap = await loader.loadAsync([px, nx, py, ny, pz, nz]);
     const geo = new SphereGeometry(10, 100, 100);
     const PARAMS = {
       scale: 0.09,
       intensity: 0.95,
       color: new Color("#4b49ff"),
-      colorIntensity: 2,
+      colorIntensity: 35.0,
     };
     const mat = new ShaderMaterial({
       vertexShader: vertex,
@@ -44,16 +53,28 @@ export default class World {
         uColorIntensity: {
           value: PARAMS.colorIntensity,
         },
+        uEnvMap: {
+          value: envMap,
+        },
       },
     });
     const mesh = new Mesh(geo, mat);
-    console.log(vertex);
-    mesh.position.z = -105;
+    const second = mesh.clone();
+    const third = mesh.clone();
+    const depth = 1.3;
+    mesh.position.z = -105 * depth;
+    second.position.z = -120 * depth;
+    second.position.x = 10;
+    third.position.z = -180 * depth;
+    third.position.x = -30;
+
     this.container.add(mesh);
+    this.container.add(second);
+    this.container.add(third);
     this.time.addEventListener("tick", () => {
       mesh.material.uniforms.uTime.value += 0.01;
-      // mesh.rotation.x += 0.01;
-      // mesh.rotation.y += 0.001;
+      mesh.rotation.x += 0.01;
+      mesh.rotation.y += 0.001;
     });
     window.addEventListener("mousemove", (e) => {
       mesh.material.uniforms.uMouse.value.x =
@@ -88,7 +109,7 @@ export default class World {
         });
       folder.addInput(mesh.material.uniforms.uColorIntensity, "value", {
         min: 0,
-        max: 10,
+        max: 50,
         step: 0.01,
         label: "color intensity",
       });
