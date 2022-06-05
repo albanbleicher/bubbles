@@ -63,10 +63,10 @@ export default class World {
     mesh.scale.set(0, 0, 0);
     const second = mesh.clone();
     second.material = mat.clone();
-    second.material.uniforms.uTime.value = -100;
+    second.material.uniforms.uTime.value = -10;
     const third = mesh.clone();
     third.material = mat.clone();
-    third.material.uniforms.uTime.value = -500;
+    third.material.uniforms.uTime.value = -5;
     const depth = 1.3;
     mesh.position.z = -105 * depth;
     second.position.z = -120 * depth;
