@@ -62,7 +62,11 @@ export default class World {
     const mesh = new Mesh(geo, mat);
     mesh.scale.set(0, 0, 0);
     const second = mesh.clone();
+    second.material = mat.clone();
+    second.material.uniforms.uTime.value = -100;
     const third = mesh.clone();
+    third.material = mat.clone();
+    third.material.uniforms.uTime.value = -500;
     const depth = 1.3;
     mesh.position.z = -105 * depth;
     second.position.z = -120 * depth;
@@ -83,8 +87,14 @@ export default class World {
     });
     this.time.addEventListener("tick", () => {
       mesh.material.uniforms.uTime.value += 0.01;
+      second.material.uniforms.uTime.value += 0.01;
+      third.material.uniforms.uTime.value += 0.01;
       mesh.rotation.x += 0.01;
       mesh.rotation.y += 0.001;
+      second.rotation.x -= 0.01;
+      second.rotation.y -= 0.001;
+      third.rotation.x += 0.001;
+      third.rotation.z += 0.0001;
     });
     window.addEventListener("mousemove", (e) => {
       mesh.material.uniforms.uMouse.value.x =
