@@ -78,9 +78,9 @@ export default class World {
     this.container.add(second);
     this.container.add(third);
     gsap.to([third.scale, second.scale, mesh.scale], {
-      x: 1,
-      y: 1,
-      z: 1,
+      x: 2,
+      y: 2,
+      z: 2,
       ease: "back.out(1.3)",
       stagger: 0.3,
       duration: 1.5,
